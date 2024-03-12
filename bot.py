@@ -46,7 +46,7 @@ def clear_history():
 
 # main app
 st.title("Farhan GPT 🤖")
-st.subheader("AI Assistant 🥷")
+st.subheader("AI Q&A Assistant 🥷")
 
 # chat input
 if prompt := st.chat_input("Your question"):
