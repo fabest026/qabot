@@ -58,47 +58,20 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+
 # create a subheader
 st.markdown('''
 <style>
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 36px;
-    line-height: 0px;
-    margin-top: 0;
-    margin-bottom: 24px;
-    text-align: center;
-}
-
 h3 {
     font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
-    line-height: 0px;
+    font-size: 16px;
+    line-height: 24px;
     margin-top: 0;
     margin-bottom: 24px;
-    text-align: center;
-    width: 50%;
-}
-
-h3::before, h3::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: black;
-    margin: 0 10px;
 }
 </style>
-<div class="container">
-    <h1 style="color: black;">✨ AI Q&A Assistant</h1>
-    <h3 style="color: black;">Unlock Answers in a Snap with Assistant!💡</h3>
-</div>
-''', unsafe_allow_html=True)
+<h3 style="text-align: center; color: black;">Unlock Answers in a Snap with Assistant!💡<br />Generate response for blogs, social media, content marketing, and more!</h3>
+''', unsafe_allow_html=True)  
 
 # chat input
 if prompt := st.chat_input("Your question"):
