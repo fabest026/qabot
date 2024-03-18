@@ -39,7 +39,8 @@ if "messages" not in st.session_state:
 
 # bot code
 def bot_response(prompt: str) -> None:
-    response = get_gemini_response(prompt)
+    history = " ".join([msg["content"] for msg in st.session_state.messages])
+    response = get_gemini_response(history + " " + prompt)
     st.session_state.messages.append({"role": "bot", "content": response})
 # user code
 def user_response(prompt):
@@ -53,7 +54,7 @@ def clear_history():
 # Add the Title
 st.markdown(
     "<h1 style='text-align: center; color: black;'>"
-    "✨ AI Q&A Assistant"
+    "✨ Farhan AI Oracle ✨"
     "</h1>",
     unsafe_allow_html=True
 )
@@ -70,8 +71,29 @@ h3 {
     margin-bottom: 24px;
 }
 </style>
-<h3 style="text-align: center; color: black;">Unlock Answers in a Snap with Assistant!💡<br />Generate response for blogs, social media, content marketing, and more!</h3>
+<h3 style="text-align: center; color: black;">Ask, and Answers Shall Appear!!💡<br />AI solutions to enhance productivity and decision-making!</h3>
 ''', unsafe_allow_html=True)  
+
+# chat input
+st.markdown(
+    """
+    <style>
+    .element-container .stChatInput,
+    .element-container .stChatButton {
+        background-color: #f0f8ff !important;
+        border-color: #000000 !important;
+        color: white !important;
+    }
+    .element-container .stChatInput {
+        caret-color: white !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+
 
 # chat input
 if prompt := st.chat_input("Your question"):
@@ -79,51 +101,43 @@ if prompt := st.chat_input("Your question"):
 
     # generate bot response if last message is not from bot
     if st.session_state.messages[-1]["role"] != "bot":
-        with st.chat_message("bot"):
             with st.spinner("Thinking..."):
                 bot_response(prompt)
 
 
 # clear chat history button
+st.markdown(
+    """
+    <style>
+    .element-container .stButton.stBtn { 
+        background-color: #ffc107 !important;
+        border-color: #ffc107 !important;
+    }
+    .stButton.stBtn:nth-last-child(2) {display: none;}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 st.button("Clear History", on_click=lambda: st.session_state.messages.clear())
 
 # display chat history
 for msg in st.session_state.messages:
     if msg["role"] == "bot":
         st.image(ava_bot, width=40)
-        st.markdown(f"**{msg['role']}** {msg['content']}")
+        st.markdown("**Bot:**", unsafe_allow_html=True)
+        st.write(" ")
+        st.markdown(msg["content"], unsafe_allow_html=True)
     else:
         st.image(ava_human, width=40)
-        st.markdown(f"**{msg['role']}** {msg['content']}")
+        st.markdown("**User:**", unsafe_allow_html=True)
+        st.write(" ")
+        st.markdown(msg["content"], unsafe_allow_html=True)
+        
 
 # Render profile footer in sidebar at the "bottom"
 # Set a background image
-def set_background_image():
-    st.markdown(
-        """
-        <style>
-        .stApp {
-            background-image: url("https://images.pexels.com/photos/4097159/pexels-photo-4097159.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
-            background-size: cover;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-set_background_image()
 
 # Set a background image for the sidebar
-sidebar_background_image = '''
-<style>
-[data-testid="stSidebar"] {
-    background-image: url("https://www.pexels.com/photo/abstract-background-with-green-smear-of-paint-6423446/");
-    background-size: cover;
-}
-</style>
-'''
-
-st.sidebar.markdown(sidebar_background_image, unsafe_allow_html=True)
 
 hide_st_style = """
             <style>
@@ -149,6 +163,5 @@ footer_css = """
 }
 </style>
 """
-
-
+       
 
