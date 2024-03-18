@@ -74,7 +74,7 @@ h3 {
     justify-content: center;
 }
 </style>
-<h3 style="color: black;">Unlock Answers in a Snap with Assistant!💡</h3>
+<h3 style="color: black;">Empower Your Answers - Just a Few Clicks Away!!💡</h3>
 ''', unsafe_allow_html=True)
 
 # chat input
