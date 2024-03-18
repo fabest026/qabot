@@ -96,10 +96,6 @@ for msg in st.session_state.messages:
         st.image(ava_human, width=40)
         st.markdown(f"**{msg['role']}** {msg['content']}")
 
-# Adding the HTML footer
-# Profile footer HTML for sidebar
-
-
 # Render profile footer in sidebar at the "bottom"
 # Set a background image
 def set_background_image():
