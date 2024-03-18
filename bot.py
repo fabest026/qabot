@@ -60,22 +60,6 @@ st.markdown(
 
 #st.title('✨ AI Q&A Assistant')
 
-# create a subheader
-st.markdown('''
-<style>
-h3 {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
-    line-height: 0px;
-    margin-top: 0;
-    margin-bottom: 24px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-}
-</style>
-<h3 style="color: black;">Empower Your Answers - Just a Few Clicks Away!!💡</h3>
-''', unsafe_allow_html=True)
 
 # chat input
 if prompt := st.chat_input("Your question"):
