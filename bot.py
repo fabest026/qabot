@@ -44,9 +44,40 @@ def user_response(prompt):
 def clear_history():
     st.session_state.messages = []
 
-# main app
-st.title("Farhan GPT 🤖")
-st.subheader("AI Q&A Assistant 🥷")
+# Navbar
+st.set_page_config(
+    page_title="Q&A Bot",
+    page_icon="🥷",
+    layout="centered",
+    initial_sidebar_state="collapsed",
+)
+
+# Add the Title
+st.markdown(
+    "<h1 style='text-align: center; color: black;'>"
+    "✨ AI Q&A Assistant"
+    "</h1>",
+    unsafe_allow_html=True
+)
+
+#st.title('✨ AI Q&A Assistant')
+
+# create a subheader
+st.markdown('''
+<style>
+h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    line-height: 0px;
+    margin-top: 0;
+    margin-bottom: 24px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+</style>
+<h3 style="color: black;">Unlock Answers in a Snap with Assistant!💡</h3>
+''', unsafe_allow_html=True)
 
 # chat input
 if prompt := st.chat_input("Your question"):
@@ -70,3 +101,82 @@ for msg in st.session_state.messages:
     else:
         st.image(ava_human, width=40)
         st.markdown(f"**{msg['role']}** {msg['content']}")
+
+# Adding the HTML footer
+# Profile footer HTML for sidebar
+
+
+# Render profile footer in sidebar at the "bottom"
+# Set a background image
+def set_background_image():
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background-image: url("https://images.pexels.com/photos/4097159/pexels-photo-4097159.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+            background-size: cover;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+set_background_image()
+
+# Set a background image for the sidebar
+sidebar_background_image = '''
+<style>
+[data-testid="stSidebar"] {
+    background-image: url("https://www.pexels.com/photo/abstract-background-with-green-smear-of-paint-6423446/");
+    background-size: cover;
+}
+</style>
+'''
+
+st.sidebar.markdown(sidebar_background_image, unsafe_allow_html=True)
+
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
+# Custom CSS to inject into the Streamlit app
+footer_css = """
+<style>
+.footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    background-color: transparent;
+    color: black;
+    text-align: right;
+    padding-right: 10px;
+}
+</style>
+"""
+
+
+# HTML for the footer - replace your credit information here
+footer_html = f"""
+<div class="footer">
+    <p style="font-size: 12px; font-style: italic; color: gray; margin-bottom: 0px; opacity: 0.7; line-height: 1.2; text-align: center;">
+        <span style="display: block; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; font-family: 'Open Sans', sans-serif;">Developed by::</span>
+        <span style="font-size: 20px; font-weight: 800; text-transform: uppercase; font-family: 'Open Sans', sans-serif;">Farhan Akbar</span>
+    </p>
+    <a href="https://www.linkedin.com/in/farhan-akbar-ai/"><img src="https://img.shields.io/badge/LinkedIn-Profile-blue?style=for-the-badge&logo=linkedin" alt="LinkedIn"/></a>
+    <a href="https://api.whatsapp.com/send?phone=923114202358"><img src="https://img.shields.io/badge/WhatsApp-Chat%20Me-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp"/></a>
+    <a href="mailto:rasolehri@gmail.com"><img src="https://img.shields.io/badge/Email-Contact%20Me-red?style=for-the-badge&logo=email" alt="Email"/></a>
+</div>
+"""
+
+# Combine CSS and HTML for the footer
+st.markdown(footer_css, unsafe_allow_html=True)
+st.markdown(footer_html, unsafe_allow_html=True)
+
+
+
