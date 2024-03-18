@@ -21,8 +21,13 @@ def get_gemini_response(question):
     response = model.generate_content(question)
     return response.text
 
-# initialize streamlit app
-st.set_page_config(page_title="Farhan Q&A Bot")
+# Navbar
+st.set_page_config(
+    page_title="Q&A Bot",
+    page_icon="🥷",
+    layout="centered",
+    initial_sidebar_state="collapsed",
+)
 
 # load avatars
 ava_bot = Image.open("bot-ava.png")
@@ -44,13 +49,6 @@ def user_response(prompt):
 def clear_history():
     st.session_state.messages = []
 
-# Navbar
-st.set_page_config(
-    page_title="Q&A Bot",
-    page_icon="🥷",
-    layout="centered",
-    initial_sidebar_state="collapsed",
-)
 
 # Add the Title
 st.markdown(
