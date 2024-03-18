@@ -150,9 +150,5 @@ footer_css = """
 </style>
 """
 
-# Combine CSS and HTML for the footer
-st.markdown(footer_css, unsafe_allow_html=True)
-st.markdown(footer_html, unsafe_allow_html=True)
-
 
 
