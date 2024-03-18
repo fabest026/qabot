@@ -63,9 +63,8 @@ st.markdown('''
 <style>
 .container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
 }
 
 h1 {
@@ -84,9 +83,15 @@ h3 {
     margin-top: 0;
     margin-bottom: 24px;
     text-align: center;
-    display: flex;
-    justify-content: space-between;
     width: 50%;
+}
+
+h3::before, h3::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: black;
+    margin: 0 10px;
 }
 </style>
 <div class="container">
@@ -94,7 +99,6 @@ h3 {
     <h3 style="color: black;">Unlock Answers in a Snap with Assistant!💡</h3>
 </div>
 ''', unsafe_allow_html=True)
-
 
 # chat input
 if prompt := st.chat_input("Your question"):
