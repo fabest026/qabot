@@ -71,7 +71,7 @@ h3 {
     margin-bottom: 24px;
 }
 </style>
-<h3 style="text-align: center; color: black;">Developed by: Farhan Akbar💡<br />AI solutions to enhance productivity and decision-making!</h3>
+<h3 style="text-align: center; color: black;">Developed by: Farhan Akbar!!💡<br />AppJingle Solutions: Empowering productivity and smarter decisions through AI!</h3>
 ''', unsafe_allow_html=True)  
 
 # chat input
