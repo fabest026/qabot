@@ -23,7 +23,7 @@ def get_gemini_response(question):
 
 # Navbar
 st.set_page_config(
-    page_title="Q&A Bot",
+    page_title="AppJingle AI",
     page_icon="🥷",
     layout="centered",
     initial_sidebar_state="collapsed",
@@ -54,7 +54,7 @@ def clear_history():
 # Add the Title
 st.markdown(
     "<h1 style='text-align: center; color: black;'>"
-    "✨ Farhan AI Oracle ✨"
+    "✨ AppJingle AI ✨"
     "</h1>",
     unsafe_allow_html=True
 )
@@ -71,7 +71,7 @@ h3 {
     margin-bottom: 24px;
 }
 </style>
-<h3 style="text-align: center; color: black;">Ask, and Answers Shall Appear!!💡<br />AI solutions to enhance productivity and decision-making!</h3>
+<h3 style="text-align: center; color: black;">Developed by: Farhan Akbar💡<br />AI solutions to enhance productivity and decision-making!</h3>
 ''', unsafe_allow_html=True)  
 
 # chat input
