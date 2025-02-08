@@ -14,7 +14,8 @@ from typing import List
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # load Gemini Pro model
-model = genai.GenerativeModel("gemini-2.0-flash-exp")
+model = genai.GenerativeModel("gemini-2.0-flash-thinking-exp-01-21"                    
+  )
 
 # function to get response from Gemini model
 def get_gemini_response(question):
