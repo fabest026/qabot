@@ -1,160 +1,167 @@
-/* Global Styles */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+## loading all the environment variables                    
+  
+from dotenv import load_dotenv
+load_dotenv()  
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+# import statements
+import streamlit as st
+import os
+import google.generativeai as genai
+from PIL import Image
+from typing import List
+
+
+# configure google API key
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+# load Gemini Pro model
+model = genai.GenerativeModel("gemini-2.0-flash-exp")
+
+# function to get response from Gemini model
+def get_gemini_response(question):
+    response = model.generate_content(question)
+    return response.text
+
+# Navbar
+st.set_page_config(
+    page_title="AppJingle AI",
+    page_icon="🥷",
+    layout="centered",
+    initial_sidebar_state="collapsed",
+)
+
+# load avatars
+ava_bot = Image.open("bot-ava.png")
+ava_human = Image.open("human-ava.png")
+
+# initialize chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# bot code
+def bot_response(prompt: str) -> None:
+    history = " ".join([msg["content"] for msg in st.session_state.messages])
+    response = get_gemini_response(history + " " + prompt)
+    st.session_state.messages.append({"role": "bot", "content": response})
+# user code
+def user_response(prompt):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+# clear chat history
+def clear_history():
+    st.session_state.messages = []
+
+
+# Add the Title
+st.markdown(
+    "<h1 style='text-align: center; color: black;'>"
+    "✨ AppJingle AI ✨"
+    "</h1>",
+    unsafe_allow_html=True
+)
+
+
+# create a subheader
+st.markdown('''
+<style>
+h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 0;
+    margin-bottom: 24px;
 }
+</style>
+<h3 style="text-align: center; color: black;">Developed by: Farhan Akbar!!💡<br />AppJingle Solutions: Empowering productivity and smarter decisions through AI!</h3>
+''', unsafe_allow_html=True)  
 
-/* Hide Streamlit Components */
-#MainMenu, header, footer {
-    display: none !important;
-}
-
-/* Chat Header */
-.chat-header {
-    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
-    padding: 1.5rem;
-    border-radius: 16px;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.header-content {
-    text-align: center;
-    color: white;
-}
-
-.header-content h1 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.subtitle {
-    font-size: 1rem;
-    opacity: 0.9;
-}
-
-/* Chat Messages */
-.chat-message {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.5rem;
-    max-width: 80%;
-    animation: fadeIn 0.3s ease-in;
-}
-
-.user-message {
-    margin-left: auto;
-    align-items: flex-end;
-}
-
-.bot-message {
-    margin-right: auto;
-    align-items: flex-start;
-}
-
-.message-content {
-    padding: 1rem 1.5rem;
-    border-radius: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.user-message .message-content {
-    background: #4F46E5;
-    color: white;
-    border-bottom-right-radius: 4px;
-}
-
-.bot-message .message-content {
-    background: #F3F4F6;
-    color: #1F2937;
-    border-bottom-left-radius: 4px;
-}
-
-.message-timestamp {
-    font-size: 0.75rem;
-    color: #6B7280;
-    margin-top: 0.25rem;
-}
-
-/* Input Area */
-.input-area {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: white;
-    padding: 1rem 2rem;
-    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.stTextInput {
-    background: #F3F4F6;
-    border-radius: 12px;
-    border: 2px solid #E5E7EB;
-    padding: 0.75rem 1rem;
-    transition: all 0.3s ease;
-}
-
-.stTextInput:focus {
-    border-color: #4F46E5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-}
-
-/* Button Styles */
-.stButton button {
-    background: #4F46E5 !important;
-    color: white !important;
-    border-radius: 12px !important;
-    padding: 0.75rem 1.5rem !important;
-    border: none !important;
-    transition: all 0.3s ease !important;
-}
-
-.stButton button:hover {
-    background: #4338CA !important;
-    transform: translateY(-1px);
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
+# chat input
+st.markdown(
+    """
+    <style>
+    .element-container .stChatInput,
+    .element-container .stChatButton {
+        background-color: #f0f8ff !important;
+        border-color: #000000 !important;
+        color: white !important;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .element-container .stChatInput {
+        caret-color: white !important;
     }
-}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-/* Footer */
+
+
+
+# chat input
+if prompt := st.chat_input("Your question"):
+    user_response(prompt)
+
+    # generate bot response if last message is not from bot
+    if st.session_state.messages[-1]["role"] != "bot":
+            with st.spinner("Thinking..."):
+                bot_response(prompt)
+
+
+# clear chat history button
+st.markdown(
+    """
+    <style>
+    .element-container .stButton.stBtn { 
+        background-color: #ffc107 !important;
+        border-color: #ffc107 !important;
+    }
+    .stButton.stBtn:nth-last-child(2) {display: none;}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+st.button("Clear History", on_click=lambda: st.session_state.messages.clear())
+
+# display chat history
+for msg in st.session_state.messages:
+    if msg["role"] == "bot":
+        st.image(ava_bot, width=40)
+        st.markdown("**Bot:**", unsafe_allow_html=True)
+        st.write(" ")
+        st.markdown(msg["content"], unsafe_allow_html=True)
+    else:
+        st.image(ava_human, width=40)
+        st.markdown("**User:**", unsafe_allow_html=True)
+        st.write(" ")
+        st.markdown(msg["content"], unsafe_allow_html=True)
+        
+
+# Render profile footer in sidebar at the "bottom"
+# Set a background image
+
+# Set a background image for the sidebar
+
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
+# Custom CSS to inject into the Streamlit app
+footer_css = """
+<style>
 .footer {
     position: fixed;
-    bottom: 80px;
-    left: 0;
     right: 0;
-    text-align: center;
-    padding: 1rem;
-    color: #6B7280;
-    font-size: 0.875rem;
+    bottom: 0;
+    width: auto;
+    background-color: transparent;
+    color: black;
+    text-align: right;
+    padding-right: 10px;
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .chat-message {
-        max-width: 90%;
-    }
+</style>
+"""
     
-    .header-content h1 {
-        font-size: 2rem;
-    }
-    
-    .input-area {
-        padding: 1rem;
-    }
-}
