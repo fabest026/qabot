@@ -15,7 +15,7 @@ from typing import List
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # load Gemini Pro model
-model = genai.GenerativeModel("gemini-2.5-flash-lite")
+model = genai.GenerativeModel("gemini-3-pro-preview")
 
 # function to get response from Gemini model
 def get_gemini_response(question):
@@ -165,4 +165,5 @@ footer_css = """
 </style>
 """
     
+
 
